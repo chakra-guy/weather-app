@@ -1,31 +1,21 @@
-export const weatherReducer = (state = {}, action) => {
-  switch (action.type) {
+export const weatherReducer = (state = {}, { type, payload }) => {
 
-    case 'ADD_LOCATION':
-      return {...state, location: action.payload};
-
-    case 'GET_WEATHER_DATA':
+  switch (type) {
+    case 'GET_WEATHER':
+      const { weather, picture } = payload;
+      const pic = picture.total !== 0
+                ? picture.results[Math.floor(Math.random() * 5)].urls.thumb
+                : '';
       return {
         ...state,
-        city: action.payload.name,
-        country: action.payload.sys.country,
-        temperature: action.payload.main.temp,
-        humidity: action.payload.main.humidity,
-        description: action.payload.weather[0].description,
+        city: weather.name,
+        country: weather.sys.country,
+        temperature: weather.main.temp,
+        humidity: weather.main.humidity,
+        description: weather.weather[0].description,
+        picture: pic,
         error: '',
       };
-
-    case 'GET_WEATHER_PIC':
-      return {
-        ...state,
-        picture: action.payload.total !== 0
-                  ? action.payload.results[Math.floor(Math.random() * 5)].urls.thumb
-                  : ''
-      };
-
-    case 'GET_WEATHER_ERR':
-      console.log(action.payload);
-      return state;
 
     default:
       return state;

@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux'
 
-import { addNumber } from '../actions/numberActions';
 import { getWeather } from '../actions/weatherActions';
 
 import '../../styles/App.css'
@@ -19,10 +18,6 @@ class App extends React.Component {
     const city = e.target.elements.city.value;
     const country = e.target.elements.country.value;
     this.props.dispatch(getWeather(city, country));
-  }
-
-  onAddClick = () => {
-    this.props.dispatch(addNumber(10));
   }
 
   render() {
@@ -45,10 +40,6 @@ class App extends React.Component {
                   description={this.props.description}
                   picture={this.props.picture}
                   error={this.props.error}/>
-                <div>
-                  <button onClick={this.onAddClick}>Add 10!</button>
-                  <span>Current count: {this.props.count}</span>
-                </div>
               </div>
             </div>
           </div>
@@ -59,9 +50,6 @@ class App extends React.Component {
 }
 
 export default connect(store => ({
-
-  count: store.numberReducer.count,
-
   city: store.weatherReducer.city,
   country: store.weatherReducer.country,
   temperature: store.weatherReducer.temperature,
@@ -69,5 +57,4 @@ export default connect(store => ({
   description: store.weatherReducer.description,
   picture: store.weatherReducer.picture,
   error: store.weatherReducer.error,
-
 }))(App);
