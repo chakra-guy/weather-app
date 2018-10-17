@@ -16,6 +16,7 @@ export const weatherReducer = (state = {}, { type, payload }) => {
         picture: pic,
         error: '',
       };
+      break;
 
     default:
       return state;
